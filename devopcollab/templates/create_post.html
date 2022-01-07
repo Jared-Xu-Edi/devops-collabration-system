@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+<div class="container create-form">
+  <form class="form-group" method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+      {{ form.title.label(class="col-form-label") }} {{
+      form.title(class="form-control",placeholder="Request Title") }}
+    </div>
+    <div class="form-group">
+      {{ form.text.label(class="form-control-label") }} {{
+      form.text(class="form-control", placeholder="Write Your Request Content.")
+      }}
+    </div>
+    <div class="form-group">
+      {{ form.status.label(class="form-control-label") }} {{
+      form.status(class="form-control") }}
+    </div>
+
+    {% if current_user.is_admin %}
+    <div class="form-group">
+      {{ form.devops_owner.label(class="form-control-label") }} {{
+      form.devops_owner(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.effort_hour.label(class="form-control-label") }} {{
+      form.effort_hour(class="form-control") }}
+    </div>
+    {% endif %}
+    <div class="form-group">{{ form.submit(class="btn btn-primary") }}</div>
+  </form>
+</div>
+
+{% endblock content %}

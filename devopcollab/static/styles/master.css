@@ -1,0 +1,11 @@
+.jumbotron{
+     margin-top: 50px;
+}
+
+.navbar-nav>.active>a {
+      color: red;
+}
+
+.create-form{
+     margin-top: 100px;
+}

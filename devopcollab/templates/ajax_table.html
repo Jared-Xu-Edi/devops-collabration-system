@@ -1,0 +1,80 @@
+{% extends "base.html" %} {% block content %}
+<div class="jumbotron">
+  <h1>devops Request Management</h1>
+  {% if current_user.is_authenticated %}
+  <p>Welcome, {{current_user.username}}!</p>
+  {% else %}
+  <p>Welcome, you need to login or register to create request.</p>
+  {% endif %} {% if current_user.is_authenticated and current_user.is_admin%}
+  <div class="col text-right">
+    <button type="button" id="update_repos" class="btn btn-success mybutton">
+      Download Table
+    </button>
+  </div>
+  {% endif %}
+</div>
+
+<div class="container">
+  {# Go through each blog post #}
+
+  <table id="data" class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Created By</th>
+        <th>Request Time</th>
+        <th>Request Title</th>
+        <th>Status</th>
+        <th>devops Effort(h)</th>
+        <th>devops Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in blog_posts.items %}
+      <tr>
+        <td>{{ post.author.username }}</td>
+        <td>{{ post.date.strftime('%Y-%m-%d-%H:%M:%S') }}</td>
+        <td>
+          <a
+            class="card-title"
+            href="  {{ url_for('blog_posts.blog_post', blog_post_id=post.id) }}"
+            >{{ post.title }}</a
+          >
+        </td>
+        <td>{{post.status}}</td>
+        <td>{{ post.effort_hour }}</td>
+        <td>{{post.devops_owner}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% endblock %} {% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $("#data").DataTable({
+        ajax: "/api/data",
+        columns: [
+          { data: "name" },
+          { data: "age", searchable: false },
+          { data: "address", orderable: false, searchable: false },
+          { data: "phone", orderable: false, searchable: false },
+          { data: "email" },
+        ],
+      });
+    });
+    $(document).ready(function () {
+      $("#data").DataTable({
+        order: [[1, "desc"]],
+        columns: [
+          null,
+          { searchable: false },
+          { orderable: false },
+          null,
+          { searchable: false },
+          null,
+        ],
+      });
+    });
+  </script>
+  {% endblock %}
+</div>
