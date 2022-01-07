@@ -4,6 +4,10 @@ This is a Web App which logs all cases/requests created by user in a table view 
 There different role in the system which can update the status of these cases/requests in turn.
 It's created in the purpose of boosting the collabration between dev and ops, or dev and devops, tracking the unplanned work etc.
 
+## Design
+It's based on a blog architecture while using the DataTable frontend. The server side is using Flask.
+If this is deployed in production, the DB should use something more serious than SQLite.
+
 ## App running
 run app:
 ```
